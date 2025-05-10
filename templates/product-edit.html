@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block section %} Mahsulotlar {% endblock %}
+{% block title %} Mahsulotlar | tahrirlash {% endblock %}
+
+{% block content %}
+
+<!-- Modal Header -->
+
+<!-- Modal body -->
+<form id="edit-product-form" style="margin: 20px" method="post">
+    {% csrf_token %}
+
+    <label for="edit-product-name">Mahsulot nomi:</label>
+    <input type="text" name="name" value="{{product.name}}" id="edit-product-name" class="form-control" required>
+    <br>
+
+    <label for="edit-product-brand">Brend nomi: </label>
+    <input type="text" name="brand" value="{{product.brand}}" id="edit-product-brand" class="form-control">
+    <br>
+
+    <label for="edit-product-price">Sotib olish narxi: </label>
+    <input type="number" name="import_price" value="{{product.import_price}}" id="edit-product-price" class="form-control" required>
+
+    <label for="edit-product-price-2">Sotish narxi: </label>
+    <input type="number" name="export_price" value="{{product.export_price}}" id="edit-product-price-2" class="form-control">
+    <br>
+
+    <label for="edit-product-amount">Mavjud: </label>
+    <input type="number" name="amount" value="{{product.amount}}" id="edit-product-amount" class="form-control" required>
+    <br>
+
+    <label for="edit-product-unit">O'lchovi: </label>
+    <input type="text" name="unit" value="{{product.unit}}" id="edit-product-unit" class="form-control" required>
+    <br>
+
+    <!-- Modal footer -->
+    <button type="submit" class="btn btn-success">Yangilash</button>
+    <a href="{% url 'products' %}">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button>
+    </a>
+
+</form>
+
+{% endblock %}

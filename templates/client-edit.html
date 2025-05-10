@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="margin: 20px">
+    <!-- Modal body -->
+    <form id="edit-product-form" method="post">
+        {% csrf_token %}
+        <label for="edit-client-name">FIO:</label>
+        <input type="text" name="name" value="{{client.name}}" placeholder="Mijoz to'liq ismi..." id="edit-client-name"
+               class="form-control" required>
+        <br>
+
+        <label for="edit-market-name">Do'kon nomi:</label>
+        <input type="text" name="market" value="{{client.market}}" placeholder="Do'kon nomi..." id="edit-market-name"
+               class="form-control" required>
+        <br>
+
+        <label for="edit-client-phone">Telefon raqami:</label>
+        <input type="text" name="phone" value="{{client.phone}}" placeholder="Telefon raqami..." id="edit-client-phone"
+               class="form-control" required>
+        <br>
+
+        <label for="edit-client-address">Manzili:</label>
+        <input type="text" name="address" value="{{client.address}}" placeholder="Mijoz manzili..."
+               id="edit-client-address" class="form-control" required>
+        <br>
+
+        <label for="edit-client-debt">Qarzi:</label>
+        <input type="text" name="debt" value="{{client.debt}}" placeholder="Mijoz qarzi..." id="edit-client-debt"
+               class="form-control" required>
+        <br>
+
+        <!-- Modal footer -->
+        <button type="submit" class="btn btn-success">Yangilash</button>
+        <a href="{% url 'clients' %}">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button>
+        </a>
+
+    </form>
+</div>
+
+{% endblock%}

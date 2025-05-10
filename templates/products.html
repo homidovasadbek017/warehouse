@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %} Mahsulotlar {% endblock %}
+{% block section %} Mahsulotlar {% endblock %}
+{% block product_active %} active {% endblock %}
+
+{% block content %}
+<div class="col-md-12">
+    <div class="card card-dark">
+        <div class="card-header border-0">
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    Maxsulot qo'shish
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table" style="text-align: center;">
+                <thead>
+                <tr>
+                    <th scope="col" style="width: 15px">T/r</th>
+                    <th scope="col" style="width: 255px; text-align: center;">Nomi</th>
+                    <th scope="col" style="text-align: center;">Brendi</th>
+                    <th scope="col" style="text-align: center;">Sotib olish</th>
+                    <th scope="col" style="text-align: center;">Sotish</th>
+                    <th scope="col" style="text-align: center;">Miqdori</th>
+                    <th scope="col" style="text-align: center;"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{product.name}}</td>
+                    <td>{{product.brand}}</td>
+                    <td>{{product.import_price|floatformat:2|intcomma}} so'm</td>
+                    <td>{{product.export_price|floatformat:2|intcomma}} so'm</td>
+                    <td>{{product.amount}} {{ product.unit }}</td>
+                    <td><a href="/products/{{product.id}}/update">
+                        <button type="submit" class="btn btn-warning" data-toggle="modal">Tahrirlash</button>
+                    </a></td>
+                    <td><a href="/products/{{product.id}}/delete">
+                        <button type="submit" class="btn btn-danger" data-toggle="modal">O'chirish</button>
+                    </a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header bg-dark">
+                <h4 class="modal-title">Yangi mahsulot</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form id="new-product-form" method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <label for="new-product-name">Nomi:</label>
+                    <input type="text" name="name" placeholder="Mahsulot nomi..." id="new-product-name"
+                           class="form-control" required>
+                    <br>
+                    <label for="new-product-brand">Brand:</label>
+                    <input type="text" name="brand" placeholder="Mahsulot brendi..." id="new-product-brand"
+                           class="form-control">
+                    <br>
+                    <label for="new-product-price">Sotib olish:</label>
+                    <input type="number" name="import_price" placeholder="Sotib olish narxi..." id="new-product-price"
+                           class="form-control" required>
+                    <br>
+                    <label for="new-product-price-2">Sotish:</label>
+                    <input type="number" name="export_price" placeholder="Sotish narxi..." id="new-product-price-2"
+                           class="form-control">
+                    <br>
+                    <label for="new-product-amount">Mavjud:</label>
+                    <input type="number" name="amount" placeholder="Mahsulot miqdori..."
+                           id="new-product-amount" class="form-control" required>
+                    <br>
+                    <label for="new-product-unit">O'lchov birligi:</label>
+                    <input type="text" name="unit" placeholder="Mahsulot o'lchovi..."
+                           id="new-product-unit" class="form-control" required>
+                    <br>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Qo`shish</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- ./wrapper -->
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %} Sotuv | Tahrirlash {% endblock %}
+{% block bolim %} Sotuvlar {% endblock %}
+
+{% block content %}
+<form method="post" style="margin: 20px">
+    {% csrf_token %}
+    <label>Mahsulot:</label>
+    <select name="product_id" class="form-control" required>
+        {% for product in products %}
+            <option value="{{ product.id }}">
+                {{ product.name }}
+            </option>
+        {% endfor %}
+    </select>
+    <br>
+    <label>Mijoz:</label>
+    <select name="client_id" class="form-control" required>
+        {% for client in clients %}
+            <option value="{{ client.id }}">
+                {{ client.name }}
+            </option>
+        {% endfor %}
+    </select>
+    <br>
+    <label>Miqdor:</label>
+    <input type="number" name="amount" value="{{ sale.amount }}" class="form-control" required>
+    <br>
+    <label>Jami summa:</label>
+    <input type="number" name="total_price" value="{{ sale.total_price }}" class="form-control" required>
+    <br>
+    <label>To'landi:</label>
+    <input type="number" name="paid_price" value="{{ sale.paid_price }}" class="form-control" required>
+    <br>
+    <label>Qarz:</label>
+    <input type="number" name="debt_price" value="{{ sale.debt_price }}" class="form-control" required>
+    <br>
+    <label>Sana:</label>
+    <input type="date" name="sold_at" value="{{ sale.sold_at|date:'Y-m-d' }}" class="form-control">
+    <br>
+
+    <!-- Modal footer -->
+    <button type="submit" class="btn btn-success">Yangilash</button>
+    <a href="{% url 'sales' %}">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button>
+    </a>
+</form>
+
+{% endblock %}
