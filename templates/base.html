@@ -70,7 +70,7 @@
                     <img src="/static/dist/drinks/xejo.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">{{request.user}}</a>
+                    <a href="#" class="d-block">Xamidov Asadbek</a>
                 </div>
             </div>
 
@@ -83,6 +83,12 @@
                         <a href="{% url 'sales' %}" class="nav-link {% block sale_active %} {% endblock %}">
                             <i class="nav-icon far fa-circle text-warning"></i>
                             <p>Sotuvlar</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'imports' %}" class="nav-link {% block import_active %} {% endblock %}">
+                            <i class="nav-icon far fa-circle text-secondary"></i>
+                            <p>Kirimlar</p>
                         </a>
                     </li>
                     <li class="nav-item">

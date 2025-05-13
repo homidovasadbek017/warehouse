@@ -16,7 +16,7 @@ class Sale(BaseModel):
         return f"{self.product.name} - {self.client.name}"
 
 
-class Income(BaseModel):
+class Import(BaseModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     amount = models.FloatField(default=1)
     total_price = models.FloatField()

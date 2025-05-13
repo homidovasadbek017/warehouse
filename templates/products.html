@@ -37,12 +37,16 @@
                     <td>{{product.import_price|floatformat:2|intcomma}} so'm</td>
                     <td>{{product.export_price|floatformat:2|intcomma}} so'm</td>
                     <td>{{product.amount}} {{ product.unit }}</td>
-                    <td><a href="/products/{{product.id}}/update">
-                        <button type="submit" class="btn btn-warning" data-toggle="modal">Tahrirlash</button>
-                    </a></td>
-                    <td><a href="/products/{{product.id}}/delete">
-                        <button type="submit" class="btn btn-danger" data-toggle="modal">O'chirish</button>
-                    </a></td>
+                    <td>
+                        <a href="/products/{{product.id}}/update">
+                            <button type="submit" class="btn btn-warning" data-toggle="modal">Tahrirlash</button>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/products/{{product.id}}/delete">
+                            <button type="submit" class="btn btn-danger" data-toggle="modal">O'chirish</button>
+                        </a>
+                    </td>
                 </tr>
                 {% endfor %}
                 </tbody>

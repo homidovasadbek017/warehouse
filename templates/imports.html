@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %} Kirimlar {% endblock %}
+{% block section %} Kirimlar {% endblock %}
+{% block import_active %} active {% endblock %}
+
+{% block content %}
+<div class="col-md-12">
+    <div class="card card-dark">
+        <div class="card-header border-0">
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    Kirim qo'shish
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table" style="text-align: center;">
+                <thead>
+                <tr>
+                    <th scope="col" style="width: 15px">T/r</th>
+                    <th scope="col" style="width: 255px; text-align: center;">Yetkazib beruvchi</th>
+                    <th scope="col" style="text-align: center;">Mahsulot</th>
+                    <th scope="col" style="text-align: center;">Miqdor</th>
+                    <th scope="col" style="text-align: center;">Mahsulot narxi</th>
+                    <th scope="col" style="text-align: center;">Jami narx</th>
+                    <th scope="col" style="text-align: center;">Olingan sana</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for import in imports %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{import.deliverer}}</td>
+                    <td>{{import.product.name}}</td>
+                    <td>{{import.amount}} {{import.product.unit}}</td>
+                    <td>{{import.per_price|floatformat:2|intcomma}} so'm</td>
+                    <td>{{import.total_price|floatformat:2|intcomma}} so'm</td>
+                    <td>{{import.created_at|date:"d-m-Y"}}</td>
+                    <td>
+                        <a href="/stats/imports/{{import.id}}/update/">
+                            <button type="submit" class="btn btn-warning" data-toggle="modal">Tahrirlash</button>
+                        </a>
+                        <a href="/stats/imports/{{import.id}}/delete/">
+                            <button type="submit" class="btn btn-danger" data-toggle="modal">O'chirish</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header bg-dark">
+                <h4 class="modal-title">Kirim qo'shish</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form id="new-product-form" method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                     <label for="deliverer">Yetkazib beruvchi:</label>
+                    <input type="text" name="deliverer" id="deliverer" class="form-control" required>
+                    <br>
+
+                    <label for="product">Mahsulot:</label>
+                    <select name="product_id" id="product" class="form-control">
+                        {% for product in products %}
+                            <option value="{{product.id}}">{{product.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+
+                    <label for="amount">Miqdor:</label>
+                    <input type="number" name="amount" id="amount" class="form-control" value="1" required>
+                    <br>
+
+                    <label for="per_price">Mahsulot narxi:</label>
+                    <input type="number" name="per_price" id="per_price" class="form-control" required>
+                    <br>
+
+                    <label for="total_price">Jami narx:</label>
+                    <input type="number" name="total_price" id="total_price" class="form-control" required>
+                    <br>
+
+                    <label for="created_at">Olingan sana:</label>
+                    <input type="datetime-local" name="created_at" id="created_at" class="form-control" required>
+                    <br>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Qo`shish</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

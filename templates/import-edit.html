@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block section %} Kirimlar {% endblock %}
+{% block title %} Kirimlar | tahrirlash {% endblock %}
+
+{% block content %}
+
+<!-- Modal Header -->
+
+<!-- Modal body -->
+<form id="edit-product-form" style="margin: 20px" method="post">
+    {% csrf_token %}
+
+    <label for="edit-import-deliverer">Yetkazib beruvchi</label>
+    <input type="text" name="deliverer" value="{{imported.deliverer}}" id="edit-import-deliverer"  class="form-control" required>
+    <br>
+<!--    <label for="edit-import-product">Mahsulot:</label>-->
+<!--    <input type="text" name="product" value="{{imported.product.name}}" id="edit-import-product" class="form-control" required>-->
+<!--    <br>-->
+
+    <label>Mahsulot: </label><br>
+    <select name="product_id">
+        {% for product in products %}
+            <option value="{{product.id}}">{{product.name}}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <label for="edit-import-amount">Miqdor: </label>
+    <input type="number" name="amount" value="{{imported.amount}}" id="edit-import-amount" class="form-control" required>
+    <br>
+
+    <label for="edit-import-price">Mahsulot narxi: </label>
+    <input type="number" name="per_price" value="{{imported.per_price}}" id="edit-import-price" class="form-control" required>
+    <br>
+
+    <label for="edit-import-price-2">Jami narx: </label>
+    <input type="number" name="total_price" value="{{imported.total_price}}" id="edit-import-price-2" class="form-control">
+    <br>
+
+    <label for="edit-import-date">Olingan sana: </label>
+    <input type="date" name="created_at" value="{{imported.created_at}}" id="edit-import-date" class="form-control" required>
+    <br>
+
+    <!-- Modal footer -->
+    <button type="submit" class="btn btn-success">Yangilash</button>
+    <a href="{% url 'imports' %}">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button>
+    </a>
+
+</form>
+
+{% endblock %}
